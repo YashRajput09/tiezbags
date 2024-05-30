@@ -1,9 +1,11 @@
 const mongoose = require('mongoose');
+const config = require('config');
+const dbgr = require('debug')('development:mongoose');
 
-const dbUrl = "mongodb://127.0.0.1:27017/tiezbags";
+const dbUrl = `${config.get('MONGODB_URI')}/tiezbags`;
 mongoose.connect(dbUrl)
 .then(()=>{
-    console.log("connected to mongoDB");
+    dbgr("connected");
 }).catch((error) =>{
     console.log("Error connecting to mongoDB : ", error);
 });

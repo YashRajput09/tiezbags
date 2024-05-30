@@ -1,3 +1,7 @@
+if(process.env.NODE_ENV != "development"){
+    require("dotenv").config();
+  }
+
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
@@ -17,11 +21,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'ejs');
 
-// app.listen(8080);
-const port = 8080;
-app.listen(port, () => {
-    console.log(`Server is listening on port ${port}`);
-});
+app.listen(8080);
+// const port = 8080;
+// app.listen(port, () => {
+//     console.log(`Server is listening on port ${port}`);
+// });
 
 app.use('/owner', ownerRoute);
 app.use('/products', productsRoute);
