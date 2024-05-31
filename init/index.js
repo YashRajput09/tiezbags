@@ -14,10 +14,9 @@ dbconnection()
 });
 
 const initDB = async ()=>{
-    // await Products.deletaMany({});
+    await Products.deleteMany({});
     // initData.map((obj) =>({
     //     ...obj,
-
     // }))
     await Products.insertMany(initData.data)
 }
