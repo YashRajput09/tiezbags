@@ -44,11 +44,11 @@
             <div class="items my-3 d-flex flex-wrap gap-5">
                 <% for(product of products){ %>
 
-                <div class="card" style="width: 12rem; ">
-                    <img src="<%= product.image.url%>" style="height: 12rem; " class="card-img-top p-2" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">
-                        <b><%= product.title%></h5></b>
+                <div class="card" style="width: 12rem; background: <%= product.panelcolor %>3f">
+                    <img src="<%= product.image.url%>" style="height: 12rem;  mix-blend-mode: multiply; object-fit: contain;" class="card-img-top p-2" alt="...">
+                    <div class="card-body" style="background: <%= product.bgcolor %>40; color:<%= product.textcolor%>8f">
+                      <h5 class="card-title" >
+                        <b><%= product.title%></b></h5>
                       <h5 class="card-title">&#8377;<%= product.price.toLocaleString('en-IN')%></h5>
                       <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
                     </div>
@@ -56,8 +56,5 @@
                   <% }; %>
             </div>
         </div>
-
-
-
 </body>
 </html>
