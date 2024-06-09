@@ -7,6 +7,7 @@ const app = express();
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const path = require('path');
+const ejsMate = require('ejs-mate');
 const db = require('./config/mongoose_connection');
 const Products = require('./models/products_model');
 const Owners = require('./models/owner_model.js')
@@ -18,6 +19,7 @@ const productsRoute = require('./routes/productRoute.js');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
 app.use(cookieParser());
+app.engine("ejs", ejsMate); // use ejs-locals for all ejs templates:
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'ejs');
 

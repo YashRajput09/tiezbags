@@ -5,3 +5,8 @@ module.exports.index = async(req, res) => {
     // console.log(allProducts);
     res.render("products/index.ejs",{products : allProducts} )
 };
+
+module.exports.newProductForm = async(req, res) =>{
+    res.render("products/newProduct.ejs")
+    // res.send("Ysh is here")
+}
