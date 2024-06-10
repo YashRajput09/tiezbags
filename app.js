@@ -29,10 +29,6 @@ app.listen(8080);
 //     console.log(`Server is listening on port ${port}`);
 // });
 
+app.use(['/products', '/'], productsRoute);
 app.use('/owner', ownerRoute);
-app.use('/products', productsRoute);
 app.use('/users', userRoute);
-
-app.get('/', (req, res) =>{
-    res.send("Working...")
-});

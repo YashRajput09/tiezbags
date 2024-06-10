@@ -15,22 +15,8 @@ p{
     height: 100vh;
 }
 
-.sort-by{
-    /* background: #656464; */
-    /* justify-content: center;
-    align-items: end; */
-}
-
 .products{
     /* background: #6193934f; */
     min-height: 100vh;
     /* width: 72vw; */
-}
-
-.card{
-    /* background: #e9e9e9 !important; */
-}
-.card-img-top{
-    /* background: #000 !important; */
-    /* object-fit: fill !important; */
 }
