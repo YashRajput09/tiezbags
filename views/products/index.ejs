@@ -3,8 +3,8 @@
     <div class="d-flex px-5 gap-3">
         <div class="menu-bar position-sticky d-flex flex-column  align-items-start justify-content-between gap-5">
             <div>
-            <div class="sort-by d-flex my-3  align-items-end">
-                <h5>sort by: </h5>
+            <div class="sort-by d-flex my-3 align-items-end">
+                <h5>SortBy: </h5>
 
                 <div class="dropdown">
                 <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -18,7 +18,7 @@
             </div>
         </div>
             <div class="menu-middle-section">
-                <p class="text-secondary">New Collection</p>
+                <a href="./newProduct" class="text-secondary">New Collection</a>
                 <p><b>All Products</b></p>
                 <p class="text-secondary">Discounted Products</p>
             </div>
@@ -30,7 +30,8 @@
                 <p class="text-secondary">Discount</p>
             </div>
          </div>
-        <div class="products ">
+
+        <div class="products px-4">
             <div class="items my-3 d-flex flex-wrap gap-5">
                 <% for(product of products){ %>
 
@@ -46,3 +47,4 @@
                   <% }; %>
             </div>
         </div>
+    </div>
