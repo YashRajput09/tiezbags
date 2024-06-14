@@ -6,9 +6,22 @@ const productsController = require('../controllers/products.js');
 const Products = require('../models/products_model.js');
 
 router.get("/", productsController.index)
-router.post("/", async(req, res) =>{
-    console.log(req.body)
-    res.send("data entered")
+router.post("/", async(req, res) =>{    
+    const productData = req.body.product;
+
+    if(productData.image){
+        productData.image = {
+        url: productData.image
+        }
+        }
+        try{
+    const newProduct = new Products(productData);
+   await newProduct.save();
+    // res.send("data entered")
+    res.redirect("/products");
+        } catch (error){
+            res.send(error)
+        }
 })
 // .post(
 //     upload.single('image'),

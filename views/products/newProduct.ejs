@@ -54,7 +54,7 @@
                 <label for="image" class="form-label">Upload Image</label>
                 <input
                   type="text"
-                  name=""
+                  name="product[image]"
                   class="form-control bg-transparent border border-secondary"
                   required
                 />
@@ -63,20 +63,23 @@
             <div class="mb-3">
               <input
                 type="text"
+                name="product[title]"
                 class="form-control bg-transparent border border-secondary"
-                placeholder="Product Name"
+                placeholder="Product Title"
                 required
               />
             </div>
             <div class="d-flex gap-3 mb-3">
               <input
-                type="text"
+                type="number"
+                name="product[price]"
                 class="form-control bg-transparent border border-secondary"
                 placeholder="Product Price"
                 required
               />
               <input
                 type="text"
+                name="product[discountprice]"
                 class="form-control bg-transparent border border-secondary"
                 placeholder="Discount Price"
                 required
@@ -90,6 +93,7 @@
             <div class="mb-3">
               <input
                 type="text"
+                name="product[bgcolor]"
                 class="form-control bg-transparent border border-secondary"
                 placeholder="Background color"
                 required
@@ -98,12 +102,14 @@
             <div class="d-flex gap-3 mb-3">
               <input
                 type="text"
+                name="product[panelcolor]"
                 class="form-control bg-transparent border border-secondary"
                 placeholder="Panel color"
                 required
               />
               <input
                 type="text"
+                name="product[textcolor]"
                 class="form-control bg-transparent border border-secondary"
                 placeholder="Text color"
                 required

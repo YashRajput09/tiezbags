@@ -16,8 +16,8 @@ const ownerRoute = require('./routes/ownerRoute.js');
 const userRoute = require('./routes/userRoute.js');
 const productsRoute = require('./routes/productRoute.js');
 
-// app.use(express.json());
-// app.use(express.urlencoded({ extended: true}));
+app.use(express.json()); // Middleware to parse JSON bodies
+app.use(express.urlencoded({ extended: true})); // Middleware to parse URL-encoded bodies
 app.use(cookieParser());
 app.engine("ejs", ejsMate); // use ejs-locals for all ejs templates:
 app.use(express.static(path.join(__dirname, 'public')));
