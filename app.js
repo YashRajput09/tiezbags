@@ -16,8 +16,8 @@ const ownerRoute = require('./routes/ownerRoute.js');
 const userRoute = require('./routes/userRoute.js');
 const productsRoute = require('./routes/productRoute.js');
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true}));
+// app.use(express.json());
+// app.use(express.urlencoded({ extended: true}));
 app.use(cookieParser());
 app.engine("ejs", ejsMate); // use ejs-locals for all ejs templates:
 app.use(express.static(path.join(__dirname, 'public')));
@@ -29,6 +29,9 @@ app.listen(8080);
 //     console.log(`Server is listening on port ${port}`);
 // });
 
+app.get('products/newProducts', (req, res)=>{
+  res.send("jai shree ram")
+})
 app.use(['/products', '/'], productsRoute);
 app.use('/owner', ownerRoute);
 app.use('/users', userRoute);

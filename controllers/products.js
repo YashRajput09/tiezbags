@@ -10,3 +10,7 @@ module.exports.newProductForm = async(req, res) =>{
     res.render("products/newProduct.ejs")
     // res.send("Ysh is here")
 }
+
+module.exports.createNewListing = async(req, res, next) => {
+    console.log(req.body);
+}

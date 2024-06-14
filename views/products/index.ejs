@@ -18,7 +18,9 @@
             </div>
         </div>
             <div class="menu-middle-section">
-                <a href="./newProduct" class="text-secondary">New Collection</a>
+                <form method="GET" action="/products/newProduct">
+                <button class=" btn text-secondary bg-transparent border-none">New Collection</button>
+            </form>
                 <p><b>All Products</b></p>
                 <p class="text-secondary">Discounted Products</p>
             </div>
@@ -38,8 +40,9 @@
                 <div class="card" style="width: 12rem; background: <%= product.panelcolor %>3f">
                     <img src="<%= product.image.url%>" style="height: 12rem;  mix-blend-mode: multiply; object-fit: contain;" class="card-img-top p-2" alt="...">
                     <div class="card-body" style="background: <%= product.bgcolor %>40; color:<%= product.textcolor%>8f">
-                      <h5 class="card-title" >
-                        <b><%= product.title%></b></h5>
+                      <h5 class="card-title " >
+                        <b><a href="/products/<%=product._id%>" style="text-decoration: none; color:<%= product.textcolor%>8f"><%= product.title%></a></b>
+                        </h5>
                       <h5 class="card-title">&#8377;<%= product.price.toLocaleString('en-IN')%></h5>
                       <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
                     </div>

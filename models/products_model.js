@@ -12,6 +12,8 @@ const productSchema = new Schema({
     },
     image: {
         url: String,
+        // default: "https://t3.ftcdn.net/jpg/00/36/94/26/240_F_36942622_9SUXpSuE5JlfxLFKB1jHu5Z07eVIWQ2W.jpg",
+        // set: (v)=> v === "" ? "https://t3.ftcdn.net/jpg/00/36/94/26/240_F_36942622_9SUXpSuE5JlfxLFKB1jHu5Z07eVIWQ2W.jpg" : v,
         // required: true,
     },
     price: Number,
