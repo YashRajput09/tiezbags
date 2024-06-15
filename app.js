@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const path = require('path');
 const ejsMate = require('ejs-mate');
+const methodOverride = require("method-override");
 const db = require('./config/mongoose_connection');
 const Products = require('./models/products_model');
 const Owners = require('./models/owner_model.js')
@@ -18,9 +19,10 @@ const productsRoute = require('./routes/productRoute.js');
 
 app.use(express.json()); // Middleware to parse JSON bodies
 app.use(express.urlencoded({ extended: true})); // Middleware to parse URL-encoded bodies
+app.use(methodOverride("_method"))
 app.use(cookieParser());
-app.engine("ejs", ejsMate); // use ejs-locals for all ejs templates:
 app.use(express.static(path.join(__dirname, 'public')));
+app.engine("ejs", ejsMate); // use ejs-locals for all ejs templates:
 app.set('view engine', 'ejs');
 
 app.listen(8080);
