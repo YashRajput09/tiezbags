@@ -85,21 +85,23 @@
     <div class="col-lg-8 col-md-6">
       <h1 class="display-5"><%= product.title %></h1>
       <h3 class="text-success mb-3">&#8377;<%= product.price.toLocaleString('en-IN')%></h3>
-      <p class="lead mb-4"><%= product.description %></p>
+      <p class="lead mb-4 fw-normal text-secondary col-md-10">This stylish item is crafted from high-quality vegan leather and features a classic black and white color scheme.</p>
       
       <!-- Product Specifications -->
        
       <ul class="list-group list-group-flush mb-4 rounded col-md-10">
-        <li class="list-group-item">Material: <%= product.material %></li>
-        <li class="list-group-item">Color: <%= product.color %></li>
-        <li class="list-group-item">Dimensions: <%= product.dimensions %></li>
-        <li class="list-group-item">Weight: <%= product.weight %></li>
+        <li class="list-group-item">Material: &nbsp; Vegan Lather</li>
+        <li class="list-group-item">Color:  &nbsp; Black & White</li>
+        <li class="list-group-item">Dimensions:  &nbsp; 50 x 20 cm</li>
+        <li class="list-group-item">Weight:  &nbsp; 100g</li>
       </ul>
 
       <!-- Action Buttons -->
-      <div class="d-grid gap-2 d-md-block ">
-        <a href="#" class="btn btn-primary col-md-5">Buy Now</a>
-        <a href="#" class="btn btn-outline-secondary col-md-5">Add to Cart</a>
+      <div class="d-flex col justify-content-between">
+        <a href="/products/<%=product._id%>/edit" class="btn btn-success col-md-4">Edit</a>
+        <form method="POST" action="/products/<%=product._id%>?_method=DELETE" class="col-md-6">
+        <button class="btn btn-danger col-md-8">Delete</button>
+    </form>
       </div>
     </div>
   </div>
