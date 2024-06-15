@@ -1,81 +1,8 @@
-<% layout('../layouts/boilerplate') -%>
-<div class="navbar px-5 pt-5 pb-3 border-bottom border-2 border-secondary">
-  <div class="admin-panel">
-    <h3>TIZEBags.</h3>
-  </div>
-  <div class="navitem-wraper d-flex gap-5">
-    <div class="nav-item d-flex gap-4">
-      <a href="/" class="text-decoration-none text-secondary">Home</a>
-      <a href="" class="text-decoration-none text-secondary">Products</a>
-    </div>
-  </div>
-</div>
+<%layout('../layouts/boilerplate')-%>
 
-<div class="container d-flex flex-wrap py-4 justify-content-center">
-  <div
-    class="card"
-    style="width: 20rem; background: <%= product.panelcolor %>3f"
-  >
-    <img
-      src="<%= product.image.url%>"
-      style="height: 20rem; mix-blend-mode: multiply; object-fit: contain"
-      class="card-img-top p-2"
-      alt="..."
-    />
-    <div
-      class="card-body"
-      style="
-        background: <%= product.bgcolor %>40;
-        color: <%= product.textcolor%>8f;
-      "
-    >
-      <h5 class="card-title">
-        <b
-          ><a
-            href="/products/<%=product._id%>"
-            style="text-decoration: none; color: <%= product.textcolor%>8f"
-            ><%= product.title%></a
-          ></b
-        >
-      </h5>
-      <div
-        class="card-title d-flex justify-content-between align-items-center px-3 py-2 mb-0 mt-3 rounded-pill"
-        style="background: <%= product.bgcolor %>90"
-      >
-        <h5>Net Total</h5>
-        <h5>&#8377;<%= product.price.toLocaleString('en-IN')%></h5>
-      </div>
-      <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
-    </div>
-  </div>
-
-  <!-- Price Breakdown section -->
-   <div class="col mx-4">
-  <div class="border-bottom border-secondary border-2 border-opacity-25 mt-3">
-    <h4>Price Breakdown</h4>
-    <div class="p-4 d-flex justify-content-between col-lg-6">
-      <div>
-        <h5>Total MRP</h5>
-        <h5>Discount on MRP</h5>
-        <h5>Plateform Fee</h5>
-        <h5>Shipping Fee</h5>
-      </div>
-      <div>
-        <h5>&#8377;<%= product.price.toLocaleString('en-IN')%></h5>
-        <h5>&#8377; 0</h5>
-        <h5>0%</h5>
-        <h5>FREE</h5>
-      </div>
-    </div>
-  </div>
-
-  <div class="Total-amount row">
-    <div class="py-4 d-flex justify-content-between col-lg-6">
-      <h4>Total Amount</h4>
-      <h4>&#8377;<%= product.price.toLocaleString('en-IN')%></h4>
-    </div>
-  </div>
-
-  <button class="btn btn-dark">Place Order</button>
-</div>
+<div>
+   <h3>Product</h3>
+   <p>Product Name: <%= product.title %></p>
+   <p>Product Price: <%= product.price %></p>
+   <a href="/products/<%= product._id%>/edit">Edit Details</a>
 </div>

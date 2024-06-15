@@ -37,4 +37,10 @@ router.get("/:id", async(req, res)=>{
 //    console.log(product)
     res.render("products/show.ejs", { product })
 })
+
+router.get("/:id/edit", async(req, res)=>{
+    const { id } = req.params;
+    const productDetails = await Products.findById(id);
+    res.render("products/edit.ejs", {productDetails})
+})
 module.exports = router;
