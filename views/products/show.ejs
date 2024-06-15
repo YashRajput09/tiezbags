@@ -1,8 +1,111 @@
-<%layout('../layouts/boilerplate')-%>
+<% layout('../layouts/boilerplate') -%>
+<div class="navbar px-5 pt-5 pb-3 border-bottom border-2 border-secondary border-opacity-75">
+    <div class="admin-panel">
+      <a class="text-decoration-none text-dark fs-3 fw-semibold" href="/products">TIZEBags.</a>
+    </div>
+    <div class="navitem-wraper d-flex gap-5">
+      <!-- <div class="nav-item d-flex gap-4">
+        <a href="/" class="text-decoration-none text-secondary">Home</a>
+        <a href="" class="text-decoration-none text-secondary">Products</a>
+      </div> -->
+      <div class="nav-item d-flex gap-4">
+        <a href="" class="text-decoration-none text-secondary">Cart</a>
+        <a href="" class="text-decoration-none text-secondary">Myaccount</a>
+      </div>
+    </div>
+  </div>
 
-<div>
-   <h3>Product</h3>
-   <p>Product Name: <%= product.title %></p>
-   <p>Product Price: <%= product.price %></p>
-   <a href="/products/<%= product._id%>/edit">Edit Details</a>
+<div class="container mt-5">
+  <div class="row">
+    <!-- Product Image Section -->
+    <div class="col">
+      <!-- <div id="productCarousel" class="carousel slide" data-bs-ride="carousel"> -->
+        <div
+        class="card"
+        style="width: 20rem; background: <%= product.panelcolor %>3f"
+      >
+        <!-- <img
+          src="<%= product.image.url%>"
+          style="height: 20rem; mix-blend-mode: multiply; object-fit: contain"
+          class="card-img-top p-2"
+          alt="..."
+        /> -->
+        <div class="carousel-inner">
+            <% if (product.images && product.images.length > 0) { %>
+              <% product.images.forEach((image, index) => { %>
+                <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
+                  <img src="<%= image.url %>" style="height: 20rem; mix-blend-mode: multiply; object-fit: contain" class="d-block w-100 card-img-top p-2" alt="<%= product.title %>">
+                </div>
+              <% }) %>
+            <% } else { %>
+              <div class="carousel-item active">
+                <img src="<%= product.image.url %>" class="d-block w-100 card-img-top p-2" style="height: 20rem; mix-blend-mode: multiply; object-fit: contain alt="<%= product.title %>">
+              </div>
+            <% } %>
+          </div>
+        <div
+          class="card-body"
+          style="
+            background: <%= product.bgcolor %>40;
+            color: <%= product.textcolor%>8f;
+          "
+        >
+          <h5 class="card-title">
+            <b
+              ><a
+                href="/products/<%=product._id%>"
+                style="text-decoration: none; color: <%= product.textcolor%>8f"
+                ><%= product.title%></a
+              ></b
+            >
+          </h5>
+          <div
+            class="card-title d-flex justify-content-between align-items-center px-3 py-2 mb-0 mt-3 rounded-pill"
+            style="background: <%= product.bgcolor %>90"
+          >
+            <h5>Net Total</h5>
+            <h5>&#8377;<%= product.price.toLocaleString('en-IN')%></h5>
+          </div>
+          <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+        </div>
+      </div>
+     
+        <!-- <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button> -->
+      <!-- </div> -->
+    </div>
+
+    <!-- Product Info Section -->
+    <div class="col-lg-8 col-md-6">
+      <h1 class="display-5"><%= product.title %></h1>
+      <h3 class="text-success mb-3">&#8377;<%= product.price.toLocaleString('en-IN')%></h3>
+      <p class="lead mb-4"><%= product.description %></p>
+      
+      <!-- Product Specifications -->
+       
+      <ul class="list-group list-group-flush mb-4 rounded col-md-10">
+        <li class="list-group-item">Material: <%= product.material %></li>
+        <li class="list-group-item">Color: <%= product.color %></li>
+        <li class="list-group-item">Dimensions: <%= product.dimensions %></li>
+        <li class="list-group-item">Weight: <%= product.weight %></li>
+      </ul>
+
+      <!-- Action Buttons -->
+      <div class="d-grid gap-2 d-md-block ">
+        <a href="#" class="btn btn-primary col-md-5">Buy Now</a>
+        <a href="#" class="btn btn-outline-secondary col-md-5">Add to Cart</a>
+      </div>
+    </div>
+  </div>
 </div>
+
+<!-- Bootstrap JS and dependencies -->
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.min.js"></script> -->

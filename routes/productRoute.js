@@ -48,6 +48,7 @@ router.get("/:id/edit", async(req, res)=>{
     res.render("products/edit.ejs", {productDetails})
 })
 
+// update route
 router.put("/:id", async(req, res)=>{
     const { id } = req.params;
     const productDetails = req.body.product;
@@ -57,6 +58,13 @@ router.put("/:id", async(req, res)=>{
         }
     }
     await Products.findByIdAndUpdate(id, {...productDetails})
-    res.redirect("/products")
+    res.redirect(`/products/${id}`)
+})
+
+// delete route
+router.delete("/:id", async(req, res)=>{
+    const { id } = req.params;
+    await Products.findByIdAndDelete(id);
+    res.redirect("/products");
 })
 module.exports = router;
