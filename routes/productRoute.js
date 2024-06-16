@@ -24,11 +24,7 @@ router.post("/", async(req, res) =>{
             res.send(error)
         }
 })
-// .post(
-//     upload.single('image'),
-//     productsController.createNewProduct
-// )
-// router.get('/newProduct', productsController.newProductForm)
+
 
 // new product route
 router.get("/newProduct", productsController.newProductForm);

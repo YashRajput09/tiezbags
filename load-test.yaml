@@ -1,0 +1,11 @@
+config:
+  target: "http://localhost:8080"
+  phases:
+    - duration: 60
+      arrivalRate: 50
+scenarios:
+  - flow:
+      - get:
+          url: "/products"
+      # - get:
+      #     url: "/api/users/12345/favorites"
