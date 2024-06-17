@@ -23,7 +23,7 @@
         <a href="" class="text-secondary text-decoration-none"
           >All Products</a
         >
-        <a href="" class="text-secondary text-decoration-none"><b>Create New Product</b></a>
+        <a href="/products/newProduct" class="text-secondary text-decoration-none"><b>Create New Product</b></a>
       </div>
     </div>  
 
@@ -38,7 +38,7 @@
   <!-- create new product -->
   <div class="row new-product border-secondary">
     <div class="border-bottom border-secondary border-opacity-50 py-2">
-      <h2>Create New Product</h2>
+      <h2>Edit Product Details</h2>
     </div>
     <form method="POST" action="/products/<%= productDetails._id%>?_method=PUT">
       <div class="product-details px-4 py-4">
