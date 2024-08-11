@@ -16,9 +16,10 @@ router.post("/", async(req, res) =>{
         }
         }
         try{
-    const newProduct = new Products(productData);
+    const newProduct = new Products(productData);    
    await newProduct.save();
     // res.send("data entered")
+    req.flash("success", "New collection is added.")
     res.redirect("/products");
         } catch (error){
             res.send(error)
@@ -33,6 +34,8 @@ router.get("/newProduct", productsController.newProductForm);
 router.get("/:id", async(req, res)=>{
     const { id } = req.params; 
    const product =  await Products.findById(id);
+   console.log(product);
+   
 //    console.log(product)
     res.render("products/show.ejs", { product })
 })
@@ -54,6 +57,7 @@ router.put("/:id", async(req, res)=>{
         }
     }
     await Products.findByIdAndUpdate(id, {...productDetails})
+    req.flash("success", "Product Details updated")
     res.redirect(`/products/${id}`)
 })
 
@@ -61,6 +65,7 @@ router.put("/:id", async(req, res)=>{
 router.delete("/:id", async(req, res)=>{
     const { id } = req.params;
     await Products.findByIdAndDelete(id);
+    req.flash("success", "Product Deleted Successfully")
     res.redirect("/products");
 })
 module.exports = router;

@@ -1,8 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
-router.get("/", (req, res) =>{
-    res.send("user Route working")
+router.get("/login", (req, res) =>{
+    res.render("users/login.ejs")
+});
+
+router.get("/signup", (req, res) =>{
+    res.render("users/signup.ejs")
 });
 
 module.exports = router;
