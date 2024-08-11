@@ -9,7 +9,10 @@ const path = require('path');
 const ejsMate = require('ejs-mate');
 const methodOverride = require('method-override');
 const session = require('express-session');
-const flash = require('connect-flash')
+const flash = require('connect-flash');
+const passport = require('passport');;
+const LocalStrategy = require('passport-local');
+const userModel = require('./models/user_model.js')
 const mongooseConnection = require('./config/mongoose_connection.js'); //value is not read but its necessary to require
 const ownerRoute = require('./routes/ownerRoute.js');
 const userRoute = require('./routes/userRoute.js');
@@ -37,6 +40,13 @@ const sessionOptions ={
 }
 app.use(session(sessionOptions));
 app.use(flash());
+
+app.use(passport.initialize()); //initialize passport with every request
+app.use(passport.session()); //to identify users as they browse from page to page.
+passport.use(new LocalStrategy(userModel.authenticate())); //jitne bhi request/users hai saare localStrategy ke through authenticate hona cahiye, or un users ko authenticate karne ke liye authenticarte method use hoga. 
+// authenticate means user ko login or signup karvana (static method hai authenticate())
+passport.serializeUser(userModel.serializeUser()); //user se related jitni bhi info hai, usko session me store kar ta hai serializeUser(), jis se ki user ko baar baar login na karna pade
+passport.deserializeUser(userModel.deserializeUser()); //user se related jitni bhi info hai, usko session se hatan deserializeUser().
 
 app.use((req, res, next) =>{
   res.locals.successMsg = req.flash("success");
