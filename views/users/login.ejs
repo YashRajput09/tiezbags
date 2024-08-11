@@ -10,25 +10,25 @@
       </div>
       <div class="nav-item d-flex gap-4">
         <!-- <a href="" class="text-decoration-none text-secondary">Cart</a> -->
-        <a href="login" class="text-decoration-none text-secondary">Login</a>
+        <a href="signup" class="text-decoration-none text-secondary">SignUp</a>
       </div>
     </div>
   </div>
 
 <div class="row mt-5 ">
     <div class="col-md-8 offset-md-2 offset-lg-3 col-lg-6">
-        <form action="/user/signup" method="POST" class="needs-validation" novalidate>
+        <form action="/user/login" method="POST" class="needs-validation" novalidate>
             <div class="mb-3">
                 <label for="username" class="form-label">User Name</label>
                 <input name="username" type="text" class="form-control" id="username" required>
                 <div class="valid-feedback">looks good!</div>
             </div>
 
-            <div class="mb-3">
+            <!-- <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
                 <input name="email" type="text" class="form-control" id="email" required>
                 <div class="valid-feedback">looks good!</div>
-            </div>
+            </div> -->
 
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
@@ -36,7 +36,7 @@
                 <div class="valid-feedback">looks good!</div>
             </div>
 
-            <button class="btn btn-success">SignUp</button>
+            <button class="btn btn-success">LogIn</button>
         </form>
     </div>
 </div>
