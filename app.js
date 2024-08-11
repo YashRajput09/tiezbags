@@ -18,11 +18,12 @@ app.listen(8080);
 
 app.engine("ejs", ejsMate); // use ejs-locals for all ejs templates:
 app.set('view engine', 'ejs');
+app.set("views", path.join(__dirname, "views"));
 app.use(express.json()); // Middleware to parse JSON bodies
 app.use(express.urlencoded({ extended: true})); // Middleware to parse URL-encoded bodies
 app.use(methodOverride('_method'))
 app.use(cookieParser("cookiesecret"));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '/public')));
 
 const sessionOptions ={
   secret: "sessionsecret",
@@ -45,4 +46,4 @@ app.use((req, res, next) =>{
 
 app.use(['/products', '/'], productsRoute);
 app.use('/owner', ownerRoute);
-app.use('/users', userRoute);
+app.use('/user', userRoute);
