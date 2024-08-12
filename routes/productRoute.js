@@ -1,71 +1,71 @@
-const express = require('express');
-const multer  = require('multer')
+const express = require("express");
+const multer = require("multer");
 const router = express.Router();
 
-const productsController = require('../controllers/products.js');
-const Products = require('../models/products_model.js');
+const productsController = require("../controllers/products.js");
+const Products = require("../models/products_model.js");
+const { isLoggedIn } = require("../middlewares.js");
 
 // index route
-router.get("/", productsController.index)
-router.post("/", async(req, res) =>{    
-    const productData = req.body.product;
+router.get("/", productsController.index);
+router.post("/", async (req, res) => {
+  const productData = req.body.product;
 
-    if(productData.image){
-        productData.image = {
-        url: productData.image
-        }
-        }
-        try{
-    const newProduct = new Products(productData);    
-   await newProduct.save();
+  if (productData.image) {
+    productData.image = {
+      url: productData.image,
+    };
+  }
+  try {
+    const newProduct = new Products(productData);
+    await newProduct.save();
     // res.send("data entered")
-    req.flash("success", "New collection is added.")
+    req.flash("success", "New collection is added.");
     res.redirect("/products");
-        } catch (error){
-            res.send(error)
-        }
-})
-
+  } catch (error) {
+    res.send(error);
+  }
+});
 
 // new product route
-router.get("/newProduct", productsController.newProductForm);
+router.get("/newProduct", isLoggedIn, productsController.newProductForm);
 
 // show route
-router.get("/:id", async(req, res)=>{
-    const { id } = req.params; 
-   const product =  await Products.findById(id);
-   console.log(product);
-   
-//    console.log(product)
-    res.render("products/show.ejs", { product })
-})
+router.get("/:id", async (req, res) => {
+  const { id } = req.params;
+  const product = await Products.findById(id);
+  console.log(product);
+
+  //    console.log(product)
+  res.render("products/show.ejs", { product });
+});
 
 // edit route
-router.get("/:id/edit", async(req, res)=>{
-    const { id } = req.params;
-    const productDetails = await Products.findById(id);
-    res.render("products/edit.ejs", {productDetails})
-})
+router.get("/:id/edit", isLoggedIn, async (req, res) => {
+  const { id } = req.params;
+  const productDetails = await Products.findById(id);
+  res.render("products/edit.ejs", { productDetails });
+});
 
 // update route
-router.put("/:id", async(req, res)=>{
-    const { id } = req.params;
-    const productDetails = req.body.product;
-    if(productDetails.image){
-        productDetails.image = {
-            url: productDetails.image
-        }
-    }
-    await Products.findByIdAndUpdate(id, {...productDetails})
-    req.flash("success", "Product Details updated")
-    res.redirect(`/products/${id}`)
-})
+router.put("/:id",isLoggedIn, async (req, res) => {
+  const { id } = req.params;
+  const productDetails = req.body.product;
+  if (productDetails.image) {
+    productDetails.image = {
+      url: productDetails.image,
+    };
+  }
+  await Products.findByIdAndUpdate(id, { ...productDetails });
+  req.flash("success", "Product Details updated");
+  res.redirect(`/products/${id}`);
+});
 
 // delete route
-router.delete("/:id", async(req, res)=>{
-    const { id } = req.params;
-    await Products.findByIdAndDelete(id);
-    req.flash("success", "Product Deleted Successfully")
-    res.redirect("/products");
-})
+router.delete("/:id",isLoggedIn, async (req, res) => {
+  const { id } = req.params;
+  await Products.findByIdAndDelete(id);
+  req.flash("success", "Product Deleted Successfully");
+  res.redirect("/products");
+});
 module.exports = router;
