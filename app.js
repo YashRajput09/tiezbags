@@ -45,8 +45,8 @@ app.use(passport.initialize()); //initialize passport with every request
 app.use(passport.session()); //to identify users as they browse from page to page.
 passport.use(new LocalStrategy(userModel.authenticate())); //jitne bhi request/users hai saare localStrategy ke through authenticate hona cahiye, or un users ko authenticate karne ke liye authenticarte method use hoga. 
 // authenticate means user ko login or signup karvana (static method hai authenticate())
-passport.serializeUser(userModel.serializeUser()); //user se related jitni bhi info hai, usko session me store kar ta hai serializeUser(), jis se ki user ko baar baar login na karna pade
-passport.deserializeUser(userModel.deserializeUser()); //user se related jitni bhi info hai, usko session se hatan deserializeUser().
+passport.serializeUser(userModel.serializeUser()); //user se related jitni bhi info hai, usko session me store kar ta hai serializeUser, jis se ki user ko baar baar login na karna pade
+passport.deserializeUser(userModel.deserializeUser()); //user se related jitni bhi info hai, usko session se hatan deserializeUser()  
 
 app.use((req, res, next) =>{
   res.locals.successMsg = req.flash("success");
