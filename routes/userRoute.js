@@ -16,8 +16,13 @@ router.post("/signup", async (req, res) => {
   });
     const registeredUser = await userModel.register(newUser, password);
     console.log(registeredUser);
-    req.flash("success", "La La Paisa laya.");
-    res.redirect("/");
+    req.login(registeredUser, (err) =>{
+      if(err){
+        return next(err);
+      }
+      req.flash("success", "LaLa Paisa laya.");
+      res.redirect("/");
+    })
   } catch(e){
     req.flash("error", e.message);
     res.redirect('signup')
