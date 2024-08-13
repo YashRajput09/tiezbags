@@ -42,8 +42,9 @@ router.post(
     failureFlash: "Ex ka number yaad rhta hai tumhe, par apna username or password nahi.",
   }),
   (req, res) => {
+    const redirectUrl = res.locals.redirectUrl || "/" ; // '/' is used for, if user login from home page
     req.flash("success", "Shabas mere sher !");
-    res.redirect(res.locals.redirectUrl);
+    res.redirect(redirectUrl);
   }
 );
 
