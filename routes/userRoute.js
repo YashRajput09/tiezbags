@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const userModel = require("../models/user_model");
 const passport = require("passport");
+const { saveRedirectUrl } = require("../middlewares");
 
 router.get("/signup", (req, res) => {
   res.render("users/signup.ejs");
@@ -14,13 +15,13 @@ router.post("/signup", async (req, res) => {
     username,
     email,
   });
-    const registeredUser = await userModel.register(newUser, password);
+    const registeredUser = await userModel.register(newUser, password); //store user signup details to db
     console.log(registeredUser);
     req.login(registeredUser, (err) =>{
       if(err){
         return next(err);
       }
-      req.flash("success", "LaLa Paisa laya.");
+      req.flash("success", "Welcome to TIEZBags Guru.");
       res.redirect("/");
     })
   } catch(e){
@@ -35,13 +36,14 @@ router.get("/login", (req, res) => {
 
 router.post(
   "/login",
+  saveRedirectUrl,
   passport.authenticate("local", {
     failureRedirect: "login",
     failureFlash: "Ex ka number yaad rhta hai tumhe, par apna username or password nahi.",
   }),
   (req, res) => {
     req.flash("success", "Shabas mere sher !");
-    res.redirect("/");
+    res.redirect(res.locals.redirectUrl);
   }
 );
 
