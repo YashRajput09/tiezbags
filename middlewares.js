@@ -1,5 +1,6 @@
+const productModel = require("./models/products_model");
+
 module.exports.isLoggedIn = (req, res, next) =>{
-    // console.log(req.originalUrl);
 
     if(!req.isAuthenticated()){
         req.session.redirectUrl = req.originalUrl;
@@ -15,3 +16,16 @@ module.exports.saveRedirectUrl = (req, res, next) =>{
     }
     next();
 };
+
+module.exports.isOwner = async(req, res, next) =>{
+    const { id } = req.params;
+    const product = await productModel.findById(id);
+    console.log(product);
+    
+    if(!product.owner.equals(res.locals.currentUser._id)){
+        req.flash("error", "You don't have permission to edit")
+       return res.redirect(`/${id}`);
+    }
+    
+    next();
+}

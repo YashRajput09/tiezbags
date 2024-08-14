@@ -53,7 +53,7 @@ router.get("/logout", (req, res, next)=>{
     if(err){
       return next(err);
     }
-    req.flash("success", "Nikal Lavde, Pheli fursat me nikal.");
+    req.flash("success", "LoggedOut successfully");
     res.redirect('/');
   })
 })

@@ -1,6 +1,6 @@
 <% layout('/layouts/boilerplate') -%>
 
-<div class="container mt-5">
+<div class="container mt-5 mb-5">
   <div class="row">
     <!-- Product Image Section -->
     <div class="col">
@@ -82,12 +82,14 @@
       </ul>
 
       <!-- Action Buttons -->
+       <% if(currentUser && currentUser._id.equals(product.owner._id)) { %>
       <div class="d-flex col justify-content-between">
         <a href="/products/<%=product._id%>/edit" class="btn btn-success col-md-4">Edit</a>
         <form method="POST" action="/products/<%=product._id%>?_method=DELETE" class="col-md-6">
-        <button class="btn btn-danger col-md-8">Delete</button>
-    </form>
+        <button class="btn btn-danger col-md-8 ">Delete</button>
       </div>
+    <% } %>
+    </form>
     </div>
   </div>
 </div>
