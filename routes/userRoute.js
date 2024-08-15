@@ -2,27 +2,28 @@ const express = require("express");
 const router = express.Router();
 const passport = require("passport");
 const { saveRedirectUrl } = require("../middlewares");
-const usersController = require("../controllers/users")
+const usersController = require("../controllers/users");
 
-//signup
-router.get("/signup", usersController.renderSignUpForm);
+router
+  .route("/signup")
+  .get(usersController.renderSignUpForm)
+  .post(usersController.signUpUser);
 
-router.post("/signup", usersController.signUpUser);
+router
+  .route("/login")
+  .get(usersController.renderLogInForm)
+  .post(
+    saveRedirectUrl,
+    passport.authenticate("local", {
+      failureRedirect: "login",
+      failureFlash:
+        "Ex ka number yaad rhta hai tumhe, par apna username or password nahi.",
+    }),
+    usersController.logInUser
+  );
 
-//login
-router.get("/login", usersController.renderLogInForm);
-
-router.post(
-  "/login",
-  saveRedirectUrl,
-  passport.authenticate("local", {
-    failureRedirect: "login",
-    failureFlash: "Ex ka number yaad rhta hai tumhe, par apna username or password nahi.",
-  }),
-  usersController.logInUser
-);
-
-//logout
-router.get("/logout", usersController.logOutUser);
+router
+  .route("/logout")
+  .get(usersController.logOutUser);
 
 module.exports = router;

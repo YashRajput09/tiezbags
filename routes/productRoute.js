@@ -3,24 +3,27 @@ const router = express.Router();
 const productsController = require("../controllers/products.js");
 const { isLoggedIn, isOwner } = require("../middlewares.js");
 
-// index route
-router.get("/", productsController.index);
+router
+  .route("/")
+  .get(productsController.index)
+  .post(productsController.createNewProduct);
 
-//create product
-router.post("/", productsController.createNewProduct);
+router
+    .route("/newProduct")
+    .get(isLoggedIn, productsController.newProductForm);
 
-// new product route
-router.get("/newProduct", isLoggedIn, productsController.newProductForm);
-
-// show route
-router.get("/:id", productsController.showProduct);
+router
+  .route("/:id")
+  .get(productsController.showProduct)
+  .put(isLoggedIn, isOwner, productsController.updateProduct)
+  .delete(isLoggedIn, isOwner, productsController.deleteProduct);
 
 // edit route
-router.get("/:id/edit", isLoggedIn, isOwner, productsController.editProductForm);
+router.get(
+  "/:id/edit",
+  isLoggedIn,
+  isOwner,
+  productsController.editProductForm
+);
 
-// update route
-router.put("/:id", isLoggedIn, isOwner, productsController.updateProduct);
-
-// delete route
-router.delete("/:id", isLoggedIn, isOwner, productsController.deleteProduct);
 module.exports = router;
