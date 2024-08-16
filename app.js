@@ -51,6 +51,7 @@ passport.deserializeUser(userModel.deserializeUser()); //user se related jitni b
 app.use((req, res, next) =>{
   res.locals.successMsg = req.flash("success");
   res.locals.errorMsg = req.flash("error");
+  res.locals.infoMsg = req.flash("info");
   res.locals.currentUser = req.user; //we can not access req.user directy into ejs tamplate, so we store req.user inti res.locals.currentUser
   next();
 })

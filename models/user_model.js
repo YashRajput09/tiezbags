@@ -19,6 +19,8 @@ const userSchema = new mongoose.Schema({
         type: Array,
         default: []
     },
+    resetPasswordToken: String,
+    resetPasswordExpires: Date,
     isAdmin:Boolean,
     picture: String,
 })
