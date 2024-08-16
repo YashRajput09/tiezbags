@@ -88,14 +88,14 @@ module.exports.renderSignUpForm =  (req, res) => {
                 from: 'rajputyash8561@gmail.com',
                 subject: 'Reset Password',
                 text: `Please click on the following link, or past this into your brower to compelete the forgot password process: \n\n` +
-                      `http://${req.headers.host}/resetPassword/${token} \n\n` +
+                      `http://${req.headers.host}/user/resetPassword/${token} \n\n` +
                       `If you are not request this, please ignore this email and your password will remain unchange. \n`
               };
 
                transporter.sendMail(mailOptions, err =>{ //sent a mail to user 
                 if (err) return next(err);
                 req.flash('info', `An email has been sent to ${user.email} with further instructions.`);
-                res.redirect('forgotPassword')
+                res.redirect('login') 
               });
             })//
 
@@ -107,4 +107,56 @@ module.exports.renderSignUpForm =  (req, res) => {
     })
   }
 
-  // vsmt zxzl gihf edsr
+  module.exports.renderResetPasswordForm = (req, res, next) =>{
+    userModel.findOne({ resetPasswordToken: req.params.token , resetPasswordExpires: { $gt: Date.now() }})
+      .then( user => {
+        if(!user){
+          req.flash("error", "Password reset token is invalid or has expired.");
+          return res.redirect('forgotPassword');
+        }
+        res.render('users/resetPassword.ejs', { token: req.params.token })
+      })
+      .catch((err =>{
+        console.log(err);
+        next(err);
+      }))
+  }
+
+  module.exports.resetPassword = (req, res, next) =>{
+    userModel.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } })
+      .then( user =>{
+        if (!user){
+          req.flash("error", "Password reset token is invalid or has expired.");
+          return res.redirect('forgotPassword');
+        }
+
+        if (req.body.password === req.body.confirm){
+          user.setPassword(req.body.password, err =>{
+
+            if(err) return next(err);
+            
+            user.resetPasswordToken = undefined;
+            user.resetPasswordExpires = undefined;
+
+            user.save()
+              .then( user =>{
+                if (err) return next(err);
+                req.login(user, err =>{
+                  if (err) return next(err);
+                  req.flash("success", "Your password has been changed.")
+                  res.redirect('/');
+                });
+              })
+              .catch(err =>{
+                return next(err);
+              });
+            // user.save(err =>{
+            // });
+          });
+        }
+        else{
+          req.flash("error", "Password dost not match.");
+          res.redirect('back')
+        }
+      });
+  };

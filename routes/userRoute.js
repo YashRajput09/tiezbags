@@ -31,4 +31,9 @@ router
   .get(usersController.renderForgotPasswordForm)
   .post(usersController.forgotPassword);
   
+router
+  .route('/resetPassword/:token')
+  .get(usersController.renderResetPasswordForm)
+  .post(usersController.resetPassword);
+  
 module.exports = router;
