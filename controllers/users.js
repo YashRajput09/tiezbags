@@ -78,8 +78,8 @@ module.exports.renderSignUpForm =  (req, res) => {
                 port: 587,
                 secure: false, 
                 auth: {
-                  user: 'rajputyash8561@gmail.com',
-                  pass: 'vsmt zxzl gihf edsr'
+                  user: process.env.AUTH_GMAIL,
+                  pass: process.env.APP_PASSWORD
                 }
               });
 
