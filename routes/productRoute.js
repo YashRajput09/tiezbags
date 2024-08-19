@@ -2,11 +2,18 @@ const express = require("express");
 const router = express.Router();
 const productsController = require("../controllers/products.js");
 const { isLoggedIn, isOwner } = require("../middlewares.js");
+const multer = require('multer');
+const { storage } = require('../cloudConfig.js');
+const upload = multer({ storage });
 
 router
   .route("/")
   .get(productsController.index)
-  .post(productsController.createNewProduct);
+  .post(
+    isLoggedIn,
+    upload.single('product[image]'), 
+    productsController.createNewProduct
+  );
 
 router
     .route("/newProduct")

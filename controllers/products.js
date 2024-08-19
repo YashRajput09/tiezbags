@@ -11,16 +11,20 @@ module.exports.newProductForm =  async (req, res) => {
 };
 
 module.exports.createNewProduct = async (req, res) => {
+  let url = req.file.path;
+  let filename = req.file.filename;
+  // console.log(url, fileName)
   const productData = req.body.product;
 
-  if (productData.image) {
-    productData.image = {
-      url: productData.image,
-    };
-  }
+  // if (productData.image) {
+  //   productData.image = {
+  //     url: productData.image,
+  //   };
+  // }
   try {
     const newProduct = new Products(productData);
     newProduct.owner = req.user._id;
+    newProduct.image = { url, filename }
     await newProduct.save();
     // res.send("data entered")
     req.flash("success", "New collection is added.");

@@ -25,7 +25,7 @@
       <div class="border-bottom border-secondary border-opacity-50 py-2">
         <h2>Create New Product</h2>
       </div>
-      <form method="POST" action="/products">
+      <form method="POST" action="/products" enctype="multipart/form-data">
         <div class="product-details px-4 py-4">
           <h3>Product Details</h3>
           <!-- <div class="d-flex gap-4 py-4">
@@ -38,7 +38,7 @@
               <div class="mb-3">
                 <label for="image" class="form-label">Upload Image</label>
                 <input
-                  type="text"
+                  type="file"
                   name="product[image]"
                   class="form-control bg-transparent border border-secondary"
                   required
