@@ -13,20 +13,13 @@ module.exports.newProductForm =  async (req, res) => {
 module.exports.createNewProduct = async (req, res) => {
   let url = req.file.path;
   let filename = req.file.filename;
-  // console.log(url, fileName)
-  const productData = req.body.product;
 
-  // if (productData.image) {
-  //   productData.image = {
-  //     url: productData.image,
-  //   };
-  // }
   try {
-    const newProduct = new Products(productData);
+    const newProduct = new Products(req.body.product);
     newProduct.owner = req.user._id;
     newProduct.image = { url, filename }
     await newProduct.save();
-    // res.send("data entered")
+    
     req.flash("success", "New collection is added.");
     res.redirect("/products");
   } catch (error) {
@@ -50,14 +43,18 @@ module.exports.editProductForm = async (req, res) => {
 };
 
 module.exports.updateProduct = async (req, res) => {
-  const { id } = req.params;
-  const productDetails = req.body.product;
-  if (productDetails.image) {
-    productDetails.image = {
-      url: productDetails.image,
-    };
+  const { id } = req.params; 
+  
+  let updatedProduct = await Products.findByIdAndUpdate(id, { ...req.body.product });
+  
+  if(req.file){
+    const url = req.file.path;
+    const filename = req.file.filename;
+    updatedProduct.image = { url, filename };  
+    await updatedProduct.save();
+    console.log(updatedProduct);
   }
-  await Products.findByIdAndUpdate(id, { ...productDetails });
+  
   req.flash("success", "Product Details updated");
   res.redirect(`/products/${id}`);
 };
