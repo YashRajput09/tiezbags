@@ -19,7 +19,7 @@ module.exports.createNewProduct = async (req, res) => {
     newProduct.owner = req.user._id;
     newProduct.image = { url, filename }
     await newProduct.save();
-    
+
     req.flash("success", "New collection is added.");
     res.redirect("/products");
   } catch (error) {

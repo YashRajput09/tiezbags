@@ -5,35 +5,41 @@ const { isLoggedIn, isOwner } = require("../middlewares.js");
 const multer = require("multer");
 const { storage } = require("../cloudConfig.js");
 const upload = multer({ storage });
+const expressErrorAsync = require("../utils/expressErrorAsync");
 
 router
   .route("/")
-  .get(productsController.index)
-  .post(
+  .get(expressErrorAsync(productsController.index))  //Index route ---> show all products
+  .post(                                             //Create route
     isLoggedIn,
     upload.single("product[image]"),
     productsController.createNewProduct
   );
 
-router.route("/newProduct").get(isLoggedIn, productsController.newProductForm);
+router
+  .route("/newProduct")
+  .get(isLoggedIn, productsController.newProductForm); //newProduct route
 
 router
-  .route("/:id")
-  .get(productsController.showProduct)
-  .put(
+  .route("/:id")  
+  .get(expressErrorAsync(productsController.showProduct)) //Show route    
+  .put(                                                   //Edit-Update route
     isLoggedIn,
     isOwner,
     upload.single("product[image]"),
-    productsController.updateProduct
+    expressErrorAsync(productsController.updateProduct)
   )
-  .delete(isLoggedIn, isOwner, productsController.deleteProduct);
+  .delete(        //Delete route
+    isLoggedIn,
+    isOwner,
+    expressErrorAsync(productsController.deleteProduct)
+  );
 
-// edit route
 router.get(
   "/:id/edit",
   isLoggedIn,
   isOwner,
-  productsController.editProductForm
+  expressErrorAsync(productsController.editProductForm) // Edit route
 );
 
 module.exports = router;
