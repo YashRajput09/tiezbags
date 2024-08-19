@@ -59,3 +59,14 @@ app.use((req, res, next) =>{
 app.use(['/products', '/'], productsRoute);
 app.use('/owner', ownerRoute);
 app.use('/user', userRoute);
+
+// if request is not match to any route this will execute
+app.use('*', (req, res, next) =>{
+  next(new ExpressError(404, "Page not found"));
+});
+
+app.use((err, req, res, next) =>{
+  let { statusCode = 500, message = "Something went wrong. Please try again!"} = err;
+  console.log(err);
+  res.render('error.ejs', { statusCode, message })  
+});

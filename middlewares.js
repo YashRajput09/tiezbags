@@ -20,7 +20,6 @@ module.exports.saveRedirectUrl = (req, res, next) =>{
 module.exports.isOwner = async(req, res, next) =>{
     const { id } = req.params;
     const product = await productModel.findById(id);
-    console.log(product);
     
     if(!product.owner.equals(res.locals.currentUser._id)){
         req.flash("error", "You don't have permission to edit")
