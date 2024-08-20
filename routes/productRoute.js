@@ -6,6 +6,7 @@ const multer = require("multer");
 const { storage } = require("../cloudConfig.js");
 const upload = multer({ storage });
 const expressErrorAsync = require("../utils/expressErrorAsync");
+const { validateProduct } = require('../middlewares.js')
 
 router
   .route("/")
@@ -13,6 +14,7 @@ router
   .post(                                             //Create route
     isLoggedIn,
     upload.single("product[image]"),
+    validateProduct,
     productsController.createNewProduct
   );
 
@@ -27,6 +29,7 @@ router
     isLoggedIn,
     isOwner,
     upload.single("product[image]"),
+    validateProduct,
     expressErrorAsync(productsController.updateProduct)
   )
   .delete(        //Delete route
