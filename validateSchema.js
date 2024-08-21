@@ -5,7 +5,7 @@ module.exports.productSchema = Joi.object({
   product: Joi.object({
     title: Joi.string().required(),
     price: Joi.number().min(0).required(),
-    discountprice: Joi.number().min(0).required(),
+    discount: Joi.number().min(0).required(),
     image: Joi.object({
       url: Joi.string().uri().optional(),
       filename: Joi.string().optional(),
