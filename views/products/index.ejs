@@ -1,53 +1,54 @@
-    <% layout('/layouts/boilerplate') -%>
-    
-    <div class="d-flex px-5 gap-3">
-        <div class="menu-bar position-sticky d-flex flex-column  align-items-start justify-content-between gap-5">
-            <div>
+<% layout('/layouts/boilerplate') -%>
+
+<div class="d-flex">
+    <!-- Menu Bar -->
+    <div class="menu-bar d-flex flex-column align-items-start justify-content-between d-none d-lg-block gap-5">
+        <div>  
             <div class="sort-by d-flex my-3 align-items-end">
-                <h5>SortBy: </h5>
+                <h5>Sort By: </h5>
 
                 <div class="dropdown">
-                <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Popular
-                </button>
-                <ul class="dropdown-menu">
-                  <li><button class="dropdown-item" type="button">Action</button></li>
-                  <li><button class="dropdown-item" type="button">Another action</button></li>
-                  <li><button class="dropdown-item" type="button">Something else here</button></li>
-                </ul>
+                    <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Popular
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><button class="dropdown-item" type="button">Action</button></li>
+                        <li><button class="dropdown-item" type="button">Another action</button></li>
+                        <li><button class="dropdown-item" type="button">Something else here</button></li>
+                    </ul>
+                </div>
             </div>
-        </div>
+
             <div class="menu-middle-section">
                 <form method="GET" action="/products/newProduct">
-                <button class=" btn text-secondary bg-transparent border-none">New Collection</button>
-            </form>
+                    <button class="btn text-secondary bg-transparent border-none">New Collection</button>
+                </form>
                 <p><b>All Products</b></p>
                 <p class="text-secondary">Discounted Products</p>
             </div>
         </div>
 
-            <div class="filter-by">
-                <h5>Filter by:</h5>
-                <p>Availability</p>
-                <p class="text-secondary">Discount</p>
-            </div>
-         </div>
-
-        <div class="products px-4">
-            <div class="items my-3 d-flex flex-wrap gap-5">
-                <% for(product of products){ %>
-
-                <div class="card" style="width: 12rem; background: <%= product.panelcolor %>3f">
-                    <img src="<%= product.image.url%>" style="height: 12rem;  mix-blend-mode: multiply; object-fit: contain;" class="card-img-top p-2" alt="...">
-                    <div class="card-body" style="background: <%= product.bgcolor %>40; color:<%= product.textcolor%>8f">
-                      <h5 class="card-title" >
-                        <b><a href="/products/<%=product._id%>" style="text-decoration: none; color:<%= product.textcolor%>8f"><%= product.title%></a></b>
-                        </h5>
-                      <h5 class="card-title">&#8377;<%= product.price.toLocaleString('en-IN')%></h5>
-                      <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
-                    </div>
-                  </div>
-                  <% }; %>
-            </div>
+        <div class="filter-by">
+            <h5>Filter by:</h5>
+            <p>Availability</p>
+            <p class="text-secondary">Discount</p>
         </div>
     </div>
+
+    <!-- Content Section -->
+    <div class="products px-4 offset-lg-1">
+        <div class="items my-3 d-flex flex-wrap gap-5 justify-content-md-center justify-content-lg-end">
+            <% for(product of products){ %>
+                <div class="card" style="width: 12rem; background: <%= product.panelcolor %>3f">
+                    <img src="<%= product.image.url%>" style="height: 12rem; mix-blend-mode: multiply; object-fit: contain;" class="card-img-top p-2" alt="...">
+                    <div class="card-body" style="background: <%= product.bgcolor %>40; color:<%= product.textcolor%>8f">
+                        <h5 class="card-title">
+                            <b><a href="/products/<%=product._id%>" style="text-decoration: none; color:<%= product.textcolor%>8f"><%= product.title%></a></b>
+                        </h5>
+                        <h5 class="card-title">&#8377;<%= product.price.toLocaleString('en-IN')%></h5>
+                    </div>
+                </div>
+            <% }; %>
+        </div>
+    </div>
+</div>

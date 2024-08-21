@@ -8,6 +8,7 @@ body{
     /* flex-direction: row;   */
     /* min-height: 100vh; */
     background-color: #c7c7c77d !important;
+    overflow-x: hidden;
 }
 
 p{
@@ -15,15 +16,28 @@ p{
 }
 
 .menu-bar{
-    /* background: #bebebe; */
-    width: 20vw;
-    height: 100vh;
+    position: fixed;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        top: 60px; /* Adjust based on your navbar height */
+        left: 0;
+        width: 20vw; /* Adjust the width as needed */
+        height: calc(100% - 60px); /* Full height minus the navbar */
+        /* background-color: #c7c7c77d ; */
+        padding: 20px;
+        overflow-y: auto; /* Enable scrolling within the menu bar if content exceeds height */
+        z-index: 1000; /* Ensure it stays on top of other elements */
+        border-right: 2px solid rgb(128, 128, 128, 0.5);
+        
 }
 
 .products{
     /* background: #6193934f; */
-    min-height: 100vh;
+    /* min-height: 100vh; */
     /* width: 72vw; */
+    /* margin-left: 270px; Should match the width of the fixed menu bar plus some padding */
+    padding-top: 20px;
 }
 
 /* new product */
