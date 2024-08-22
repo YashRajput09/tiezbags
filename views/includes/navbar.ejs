@@ -1,19 +1,28 @@
-<div class="container-fluid navbar px-5 pt-4 pb-3 sticky-top bg-white border-bottom border-2 border-secondary border-opacity-75">
-    <div class="admin-panel ">
-      <a class="text-decoration-none text-dark fs-3 fw-semibold" href="/products">TIEZBags.</a>
-    </div>
-    <div class="navitem-wraper d-flex gap-3">
-      <div class="nav-item d-flex gap-4">
-        <a href="/" class="text-decoration-none text-secondary">Home</a>
-        <a href="" class="text-decoration-none text-secondary">Products</a>
+    <div class="container-fluid navbar navbar-expand-lg px-5 pt-4 pb-3 sticky-top bg-white border-bottom border-2 border-secondary border-opacity-75">
+      <div class="container-fluid">
+          <!-- Brand -->
+          <a class="navbar-brand text-dark fs-3 fw-semibold" href="/products">TIEZBags.</a>
+  
+          <!-- Toggler Button for Mobile -->
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+  
+          <!-- Navbar Links -->
+          <div class="collapse navbar-collapse" id="navbarNav">
+              <div class="navbar-nav ms-auto gap-3">
+                  <a href="/" class="nav-link text-secondary">Home</a>
+                  <a href="#" class="nav-link text-secondary">Products</a>
+  
+                  <% if (!currentUser) { %>
+                      <a href="/user/signup" class="nav-link text-secondary">SignUp</a>
+                      <a href="/user/login" class="nav-link text-secondary">Login</a>
+                  <% } %>
+                  <% if (currentUser) { %>
+                      <a href="/user/logout" class="nav-link text-secondary">Logout</a>
+                  <% } %>
+              </div>
+          </div>
       </div>
-      <a class="nav-item d-flex gap-4">
-        <% if(!currentUser) {%>
-            <a href="/user/signup" class="text-decoration-none text-secondary">SignUp</a>
-            <a href="/user/login" class="text-decoration-none text-secondary">Login</a>
-            <% } %> 
-      <% if(currentUser){ %>
-          <a href="/user/logout" class="text-decoration-none text-secondary">Logout</a>
-      <%}%>
-      </div>
-    </div>
+  </div>
+  
