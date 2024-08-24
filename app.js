@@ -30,7 +30,7 @@ app.use(express.static(path.join(__dirname, '/public')));
 
 const sessionOptions ={
   store,
-  secret: "sessionsecret",
+  secret: process.env.SECRET,
   resave: false,
   saveUninitialized: true, 
   cookie: {

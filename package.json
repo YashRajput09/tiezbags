@@ -1,4 +1,7 @@
 {
+  "engines": {
+    "node": "21.6.1"
+  },
   "name": "tiezbags",
   "version": "1.0.0",
   "main": "app.js",

@@ -15,7 +15,7 @@ mongoose.connect(dbUrl)
 module.exports.store = MongoStore.create({
     mongoUrl: dbUrl,
     crypto: {
-      secret: "sessionsecret",
+      secret: process.env.SECRET,
     },
     touchAfter: 24* 3600,
   });
