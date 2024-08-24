@@ -13,7 +13,7 @@ const flash = require('connect-flash');
 const passport = require('passport');;
 const LocalStrategy = require('passport-local');
 const userModel = require('./models/user_model.js')
-const mongooseConnection = require('./config/mongoose_connection.js'); //value is not read but its necessary to require
+const { mongooseConnection, store } = require('./config/mongoose_connection.js'); //value is not read but its necessary to require
 const ownerRoute = require('./routes/ownerRoute.js');
 const userRoute = require('./routes/userRoute.js');
 const productsRoute = require('./routes/productRoute.js');
@@ -29,6 +29,7 @@ app.use(cookieParser("cookiesecret"));
 app.use(express.static(path.join(__dirname, '/public')));
 
 const sessionOptions ={
+  store,
   secret: "sessionsecret",
   resave: false,
   saveUninitialized: true, 
