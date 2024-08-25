@@ -45,7 +45,12 @@
                         <h5 class="card-title">
                             <b><a href="/products/<%=product._id%>" style="text-decoration: none; color:<%= product.textcolor%>8f"><%= product.title%></a></b>
                         </h5>
-                        <h5 class="card-title">&#8377;<%= product.price.toLocaleString('en-IN')%></h5>
+                        <div class="d-flex justify-content-between">
+                            <h5 class="card-title">&#8377;<%= product.price.toLocaleString('en-IN')%></h5>
+                            <a href="#" class="btn"><i class="fa-solid fa-cart-arrow-down"></i></a>
+
+                        </div>
+
                     </div>
                 </div>
             <% }; %>
