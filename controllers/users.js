@@ -8,10 +8,13 @@ module.exports.renderSignUpForm =  (req, res) => {
 
   module.exports.signUpUser = async (req, res) => {
     try{
-    const { username, email, password } = req.body;
+    const { username, email, mobilenumber, password } = req.body;
+    console.log(req.body);
+    
     const newUser = new userModel({
       username,
       email,
+      mobilenumber,
     });
       const registeredUser = await userModel.register(newUser, password); //store user signup details to db
       console.log(registeredUser);

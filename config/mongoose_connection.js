@@ -3,8 +3,8 @@ const config = require('config');
 const dbgr = require('debug')('development:mongoose');
 const MongoStore = require('connect-mongo');
 
-// const dbUrl = `${config.get('MONGODB_URI')}/tiezbags`;
-const dbUrl = process.env.ATLUS_URL;
+const dbUrl = `${config.get('MONGODB_URI')}/tiezbags`;
+// const dbUrl = process.env.ATLUS_URL;
 mongoose.connect(dbUrl)
 .then(()=>{
     dbgr("connected");    

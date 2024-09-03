@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema({
         required: true,
         trim: true,
     },
-    contact: Number,
+    mobilenumber: Number,
     cart: {
         type: Array,
         default: []
