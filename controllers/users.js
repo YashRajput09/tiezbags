@@ -1,6 +1,7 @@
 const userModel = require("../models/user_model");
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
+const twilio = require('twilio');
 
 module.exports.renderSignUpForm =  (req, res) => {
     res.render("users/signup.ejs");
@@ -55,59 +56,77 @@ module.exports.renderSignUpForm =  (req, res) => {
     res.render('users/forgotPassword.ejs');
   }; 
   
-  module.exports.forgotPassword = async(req, res, next) =>{
-    crypto.randomBytes(20, (err, buf) =>{ //generate 20byte binary randomcode, which is stored in buf(Buffer)
-      if (err) return next(err);
+  // module.exports.forgotPassword = async(req, res, next) =>{
+  //   crypto.randomBytes(20, (err, buf) =>{ //generate 20byte binary randomcode, which is stored in buf(Buffer)
+  //     if (err) return next(err);
 
-      const token = buf.toString('hex'); //convert randomcode to redable hexadecimal string
+  //     const token = buf.toString('hex'); //convert randomcode to redable hexadecimal string
       
-      const email  = req.body.email;
-      userModel.findOne({ email: email })
-          .then( user =>{
-            if(!user){
-              req.flash("error", `No account exists with ${email}`);
-              return res.redirect('forgotPassword');
-            }
+  //     const email  = req.body.email;
+  //     userModel.findOne({ email: email })
+  //         .then( user =>{
+  //           if(!user){
+  //             req.flash("error", `No account exists with ${email}`);
+  //             return res.redirect('forgotPassword');
+  //           }
 
-            user.resetPasswordToken = token; //save token to db
-            user.resetPasswordExpires = Date.now() + 60 * 60 * 1000; //1 hour  //save token expire time
+  //           user.resetPasswordToken = token; //save token to db
+  //           user.resetPasswordExpires = Date.now() + 60 * 60 * 1000; //1 hour  //save token expire time
 
-            user.save()
-              .then(()=>{
+  //           user.save()
+  //             .then(()=>{
 
-              const transporter = nodemailer.createTransport({ // This method configures and returns a transport object that is used to send emails.
-                // service: 'Gamil',
-                host: 'smtp.gmail.com',
-                port: 587,
-                secure: false, 
-                auth: {
-                  user: process.env.AUTH_GMAIL,
-                  pass: process.env.APP_PASSWORD
-                }
-              });
+  //             const transporter = nodemailer.createTransport({ // This method configures and returns a transport object that is used to send emails.
+  //               // service: 'Gamil',
+  //               host: 'smtp.gmail.com',
+  //               port: 587,
+  //               secure: false, 
+  //               auth: {
+  //                 user: process.env.AUTH_GMAIL,
+  //                 pass: process.env.APP_PASSWORD
+  //               }
+  //             });
 
-              const mailOptions = { //mailOptions, which is used to configure the email that will be sent to the user when they request a password reset.
-                to: user.email,
-                from: 'rajputyash8561@gmail.com',
-                subject: 'Reset Password',
-                text: `Please click on the following link, or past this into your brower to compelete the forgot password process: \n\n` +
-                      `http://${req.headers.host}/user/resetPassword/${token} \n\n` +
-                      `If you are not request this, please ignore this email and your password will remain unchange. \n`
-              };
+  //             const mailOptions = { //mailOptions, which is used to configure the email that will be sent to the user when they request a password reset.
+  //               to: user.email,
+  //               from: 'rajputyash8561@gmail.com',
+  //               subject: 'Reset Password',
+  //               text: `Please click on the following link, or past this into your brower to compelete the forgot password process: \n\n` +
+  //                     `http://${req.headers.host}/user/resetPassword/${token} \n\n` +
+  //                     `If you are not request this, please ignore this email and your password will remain unchange. \n`
+  //             };
 
-               transporter.sendMail(mailOptions, err =>{ //sent a mail to user 
-                if (err) return next(err);
-                req.flash('info', `An email has been sent to ${user.email} with further instructions.`);
-                res.redirect('login') 
-              });
-            })//
+  //              transporter.sendMail(mailOptions, err =>{ //sent a mail to user 
+  //               if (err) return next(err);
+  //               req.flash('info', `An email has been sent to ${user.email} with further instructions.`);
+  //               res.redirect('login') 
+  //             });
+  //           })//
 
-          }).catch(err =>{
-            console.error("Error: ", err);
-            next(err);
-          });    
+  //         }).catch(err =>{
+  //           console.error("Error: ", err);
+  //           next(err);
+  //         });    
       
-    })
+  //   })
+  // }
+  module.exports.forgotPassword = async(req, res, next) => {
+      const { mobilenumber } = req.body;
+      const user = await userModel.findOne({ mobilenumber });
+      if(!user){
+          req.flash("error", "User not found ");
+          res.redirect('forgotPassword');
+      }
+
+      const otp = Math.floor(Math.random() * 900000 + 100000);   //generate 6-digit OTP
+      user.otp = otp;
+      user.otpExpires = Date.now() + 10 * 60 * 1000; // OTP expire time 10 minutes
+      await user.save();
+
+      //send OTP to user's mobile number via SMS
+      await sendOtpToUser(mobilenumber, otp);
+
+      res.render()
   }
 
   module.exports.renderResetPasswordForm = (req, res, next) =>{
